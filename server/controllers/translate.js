@@ -7,9 +7,9 @@ const convert = async (req, res) => {
     const { errors: err, doc } = await translateService.convert(body);
 
     if (doc) {
-      const { text } = doc;
+      const { translation } = doc;
 
-      return res.getRequest({ text });
+      return res.getRequest({ translation });
     }
 
     return res.badRequest('field-validation', err);
