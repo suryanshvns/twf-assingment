@@ -1,19 +1,15 @@
 const translateService = require('../services/translate');
 
-const translateText = async (req, res) => {
+const convert = async (req, res) => {
   try {
     const { body } = req;
 
-    const data = {
-      ...body,
-    };
+    const { errors: err, doc } = await translateService.convert(body);
 
-    const { errors: err, translation } = await translateService.translateText(data);
+    if (doc) {
+      const { text } = doc;
 
-    if (translation) {
-      res.setHeader('Content-Type', 'application/json');
-
-      return res.status(200).json({ translation });
+      return res.getRequest({ text });
     }
 
     return res.badRequest('field-validation', err);
@@ -23,5 +19,5 @@ const translateText = async (req, res) => {
 };
 
 module.exports = {
-  translateText,
+  convert,
 };

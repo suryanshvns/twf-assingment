@@ -1,5 +1,5 @@
-const { translateText } = require('../controllers/translate');
+const { convert } = require('../controllers/translate');
 
 module.exports = (router) => {
-  router.post('/translate', translateText);
+  router.post('/translate', convert);
 };
